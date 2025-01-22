@@ -1,0 +1,40 @@
+.header {
+	min-width: 100vw;
+	margin-bottom: 15px;
+	align-items: center;
+}
+
+.searchbar {
+	max-width: 700px;
+	display: block;
+	margin: 0 auto;
+}
+
+.daily {
+	width: 50rem;
+	margin-bottom: 15px;
+}
+
+.dailycontainer {
+	display: flex;
+	flex-grow: 1;
+}
+
+.top {
+	padding: 0;
+	margin: 0 5px 10px 5px;
+	height: 245px;
+}
+
+.map {
+	height: 25rem;
+}
+
+.futurecards {
+	padding: 0;
+	height: 200px;
+}
+
+footer {
+	text-indent: 5%;
+}

@@ -1,0 +1,11 @@
+body {
+	padding: 25px;
+	display: flex;
+	justify-content: center;
+}
+
+#root {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
