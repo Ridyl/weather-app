@@ -26,13 +26,25 @@
 	height: 245px;
 }
 
-.map {
-	height: 25rem;
+#wind {
+	background-image: url('components/images/circle.png');
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: 160px 160px;
+}
+
+.map-area {
+	height: 20rem;
+	padding: 0;
+}
+
+#map {
+	height: 300px;
 }
 
 .futurecards {
 	padding: 0;
-	height: 200px;
+	margin: 0 6px;
 }
 
 footer {

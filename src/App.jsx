@@ -7,6 +7,8 @@ import './App.css';
 
 function App() {
 	const [weather, setWeather] = useState({});
+	let date = new Date();
+	const day = date.getDay();
 
 	useEffect(() => {
 		function getWeatherData() {
@@ -33,8 +35,8 @@ function App() {
 	return (
 		<>
 			<Header />
-			<DayCard weather={weather} />
-			<Future />
+			<DayCard weather={weather} day={day} />
+			<Future weather={weather} day={day} />
 		</>
 	);
 }

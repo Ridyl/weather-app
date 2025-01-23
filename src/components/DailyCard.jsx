@@ -1,16 +1,33 @@
 import { useEffect, useState } from 'react';
 import { getQuote } from '../api/axios';
+import { Chart } from 'react-google-charts';
 import PropTypes from 'prop-types';
 import Clock from './Clock';
+import WindArrow from './WindArrow';
+import DrawMap from './Map';
 
-function DayCard({ weather }) {
+const options = {
+	width: 160,
+	height: 160,
+	redFrom: 90,
+	redTo: 100,
+	yellowFrom: 80,
+	yellowTo: 90,
+	greenFrom: 60,
+	greenTo: 80,
+	minorTicks: 5,
+};
+
+function DayCard({ weather, day }) {
 	const [quote, setQuote] = useState(null);
 	const [error, setError] = useState(null);
 
 	const currTemp = weather?.current?.temperature_2m || 'Loading...';
-	const precChance = weather.current.precipitation;
-	const windSpeed = weather.current.wind_speed_10m;
-	const windDir = weather.current.wind_direction_10m;
+	const precChance = weather?.current?.precipitation;
+	const windSpeed = weather?.current?.wind_speed_10m || 'Loading...';
+	const windDir = weather?.current?.wind_direction_10m || 'Loading...';
+	const lat = weather?.latitude || 0;
+	const lon = weather?.longitude || 0;
 
 	useEffect(() => {
 		const fetchQuote = async () => {
@@ -21,7 +38,6 @@ function DayCard({ weather }) {
 				setError(err.message);
 			}
 		};
-
 		fetchQuote();
 	}, []);
 
@@ -43,15 +59,23 @@ function DayCard({ weather }) {
 	return (
 		<div className='card daily'>
 			<div className='card-header'>
-				<Clock />
+				<Clock day={day} />
 			</div>
 			<div className='container dailycontainer'>
 				<div className='card-body row'>
-					<div className='card col top'>
+					<div className='card col top temp'>
 						<div className='card-header'>Temperature</div>
-						<div className='card-body'>
-							<div className='card-text'>{currTemp}</div>
-						</div>
+						<Chart
+							chartType='Gauge'
+							width='100%'
+							height='100%'
+							data={[
+								['Label', 'Value'],
+								['Temp', currTemp],
+							]}
+							options={options}
+							className='temp'
+						/>
 					</div>
 					<div className='card col top'>
 						<div className='card-header'>Precipitation Chance</div>
@@ -61,13 +85,13 @@ function DayCard({ weather }) {
 					</div>
 					<div className='card col top'>
 						<div className='card-header'>Winds</div>
-						<div className='card-body'>
-							<div className='card-text'>
-								{windSpeed}mph -- {windDir}
-							</div>
+						<div className='card-body text-center' id='wind'>
+							<WindArrow direction={windDir} speed={windSpeed} />
 						</div>
 					</div>
-					<div className='card map'>*MAP OBJECT</div>
+					<div className='card map-area'>
+						<DrawMap lat={lat} lon={lon} />
+					</div>
 				</div>
 			</div>
 			<SetFooter />
@@ -78,18 +102,19 @@ function DayCard({ weather }) {
 DayCard.propTypes = {
 	weather: PropTypes.shape({
 		current: PropTypes.shape({
-			temperature_2m: PropTypes.number.isRequired, // Temperature in °F or °C
-			apparent_temperature: PropTypes.number, // Feels-like temperature
-			wind_speed_10m: PropTypes.number, // Wind speed in mph
-			wind_direction_10m: PropTypes.number, // Wind direction in degrees
-			precipitation: PropTypes.number, // Precipitation in inches or mm
-			time: PropTypes.number.isRequired, // Unix time
+			temperature_2m: PropTypes.number.isRequired,
+			apparent_temperature: PropTypes.number,
+			wind_speed_10m: PropTypes.number,
+			wind_direction_10m: PropTypes.number,
+			precipitation: PropTypes.number,
+			time: PropTypes.number.isRequired,
 		}),
-		latitude: PropTypes.number, // Latitude of the location
-		longitude: PropTypes.number, // Longitude of the location
-		timezone: PropTypes.string, // Timezone of the location
-		elevation: PropTypes.number, // Elevation in meters
+		latitude: PropTypes.number,
+		longitude: PropTypes.number,
+		timezone: PropTypes.string,
+		elevation: PropTypes.number,
 	}),
+	day: PropTypes.number.isRequired,
 };
 
 export default DayCard;

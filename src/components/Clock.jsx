@@ -1,6 +1,7 @@
+import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
 
-export default function Clock() {
+export default function Clock({ day }) {
 	const [time, setTime] = useState(new Date());
 
 	const dayConvert = {
@@ -12,8 +13,6 @@ export default function Clock() {
 		5: 'Friday',
 		6: 'Saturday',
 	};
-
-	let day = time.getDay();
 
 	useEffect(() => {
 		let timer = setInterval(() => setTime(new Date()), 1000);
@@ -29,3 +28,7 @@ export default function Clock() {
 		</h5>
 	);
 }
+
+Clock.propTypes = {
+	day: PropTypes.number.isRequired,
+};
