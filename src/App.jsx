@@ -7,6 +7,8 @@ import './App.css';
 
 function App() {
 	const [weather, setWeather] = useState({});
+	const [darkMode, setDarkMode] = useState(false);
+
 	let date = new Date();
 	const day = date.getDay();
 
@@ -32,9 +34,15 @@ function App() {
 		getWeatherData();
 	}, []);
 
+	const handleDarkMode = () => {
+		setDarkMode(!darkMode);
+		const htmlElement = document.getElementById('htmlPage');
+		htmlElement.setAttribute('data-bs-theme', darkMode ? 'dark' : 'light');
+	};
+
 	return (
 		<>
-			<Header />
+			<Header handleDarkMode={handleDarkMode} />
 			<DayCard weather={weather} day={day} />
 			<Future weather={weather} day={day} />
 		</>

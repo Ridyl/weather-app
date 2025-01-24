@@ -23,6 +23,23 @@ function Future({ weather, day }) {
 			6: 'Saturday',
 		};
 
+		// Same as daily card function, just accesses array values for rain chance
+		function SetPrecChance({ value }) {
+			let setImg = '';
+
+			if (value < 20) {
+				setImg = 'bi bi-brightness-high-fill';
+			} else if (value >= 20 && value < 50) {
+				setImg = 'bi bi-cloud-sun-fill';
+			} else if (value >= 50 && value < 75) {
+				setImg = 'bi bi-cloud-drizzle-fill';
+			} else {
+				setImg = 'bi bi-cloud-rain-heavy-fill';
+			}
+
+			return <h1 className={setImg}></h1>;
+		}
+
 		return (
 			<div className='card col futurecards'>
 				<div className='card-header'>{dayConvert[day]}</div>
@@ -32,8 +49,10 @@ function Future({ weather, day }) {
 							{tempMin[value]}&deg; - {tempMax[value]}&deg;
 						</p>
 						<div>
-							<i className='bi bi-cloud-drizzle-fill'></i>
-							<p>{precChance[value]}%</p>
+							<div>
+								<SetPrecChance value={precChance[value]} />
+								{precChance[value]}%
+							</div>
 						</div>
 					</div>
 				</div>

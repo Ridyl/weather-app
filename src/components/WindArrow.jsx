@@ -8,7 +8,7 @@ function WindArrow({ direction, speed }) {
 
 	return (
 		<>
-			<p className='pt-3'>N</p>
+			<p className='pt-4'>N</p>
 			<div className=''>
 				<svg
 					xmlns='http://www.w3.org/2000/svg'

@@ -56,6 +56,24 @@ function DayCard({ weather, day }) {
 		}
 	}
 
+	// Could create a call within the API that would give current weather conditions but it increases
+	// API call size and I wanted to keep it to a minimum for this small project
+	function SetPrecChance() {
+		let setImg = '';
+
+		if (precChance < 20) {
+			setImg = 'bi bi-brightness-high-fill';
+		} else if (precChance >= 20 && precChance < 50) {
+			setImg = 'bi bi-cloud-sun-fill';
+		} else if (precChance >= 50 && precChance < 75) {
+			setImg = 'bi bi-cloud-drizzle-fill';
+		} else {
+			setImg = 'bi bi-cloud-rain-heavy-fill';
+		}
+
+		return <h1 className={setImg}></h1>;
+	}
+
 	return (
 		<div className='card daily'>
 			<div className='card-header'>
@@ -65,22 +83,25 @@ function DayCard({ weather, day }) {
 				<div className='card-body row'>
 					<div className='card col top temp'>
 						<div className='card-header'>Temperature</div>
-						<Chart
-							chartType='Gauge'
-							width='100%'
-							height='100%'
-							data={[
-								['Label', 'Value'],
-								['Temp', currTemp],
-							]}
-							options={options}
-							className='temp'
-						/>
+						<div className='card-body d-flex justify-content-center' id='gauge'>
+							<Chart
+								chartType='Gauge'
+								width='100%'
+								height='100%'
+								data={[
+									['Label', 'Value'],
+									['Temp', currTemp],
+								]}
+								options={options}
+								className='temp'
+							/>
+						</div>
 					</div>
 					<div className='card col top'>
 						<div className='card-header'>Precipitation Chance</div>
 						<div className='card-body'>
-							<div className='card-text'>{precChance}%</div>
+							<SetPrecChance />
+							<h2 className='card-text'>{precChance}%</h2>
 						</div>
 					</div>
 					<div className='card col top'>

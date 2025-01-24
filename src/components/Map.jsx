@@ -7,9 +7,10 @@ function DrawMap({ lat, lon }) {
 			{lat && lon ? (
 				<MapContainer
 					center={[lat, lon]}
+					// Find zoom level comparable to wunderground (9ish)
 					zoom={11}
 					scrollWheelZoom={false}
-					style={{ height: '20rem', borderRadius: '10px' }}
+					style={{ height: '20rem', borderRadius: '7px' }}
 				>
 					<TileLayer
 						attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
