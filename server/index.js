@@ -5,7 +5,18 @@ import cors from 'cors';
 const app = express();
 const PORT = 5000;
 
-app.use(cors());
+const allowedOrigins = [
+	'http://localhost:3000', // Dev frontend
+	'https://weather-app-ridyls-projects.vercel.app', // Deployed frontend
+];
+
+app.use(
+	cors({
+		origin: allowedOrigins,
+		methods: ['GET', 'POST', 'PUT', 'DELETE'],
+		credentials: true,
+	})
+);
 
 app.get('/api/today', async (req, res) => {
 	try {
