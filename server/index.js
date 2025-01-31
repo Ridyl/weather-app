@@ -10,7 +10,7 @@ const PORT = process.env.PORT || 5000;
 
 const allowedOrigins = [
 	process.env.FRONTEND_URL || 'http://localhost:3000', // Use env for security
-	'https://https://vercel.com/ridyls-projects/weather-app/A7jC1cwBcbU2EnCWvYnrZFv4S1zy', // Deployed frontend
+	'weather-app-delta-livid-35.vercel.app', // Deployed frontend
 ];
 
 app.use(
