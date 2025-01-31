@@ -9,13 +9,19 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 const allowedOrigins = [
-	process.env.FRONTEND_URL || 'http://localhost:3000', // Dev frontend
+	process.env.FRONTEND_URL || 'http://localhost:3000', // Use env for security
 	'https://weather-app-ridyls-projects.vercel.app', // Deployed frontend
 ];
 
 app.use(
 	cors({
-		origin: allowedOrigins,
+		origin: function (origin, callback) {
+			if (!origin || allowedOrigins.includes(origin)) {
+				callback(null, true);
+			} else {
+				callback(new Error('CORS not allowed for this origin'));
+			}
+		},
 		methods: ['GET', 'POST', 'PUT', 'DELETE'],
 		credentials: true,
 	})
@@ -48,13 +54,15 @@ app.get('/api/weather', async (req, res) => {
 		);
 		res.json(response.data);
 	} catch (error) {
-		console.error('Error fetching user info:', error.message);
-		res.status(500).json({ error: 'Failed to fetch user info' });
+		console.error('Error fetching weather info:', error.message);
+		res.status(500).json({ error: 'Failed to fetch weather info' });
 	}
 });
 
-app.listen(PORT, () => {
-	console.log(`Server is running on http://localhost:${PORT}`);
-});
+if (process.env.NODE_ENV !== 'production') {
+	app.listen(PORT, () => {
+		console.log(`Server is running on http://localhost:${PORT}`);
+	});
+}
 
 export default app;

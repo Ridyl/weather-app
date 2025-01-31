@@ -1,9 +1,9 @@
 import axios from 'axios';
 
 const API_URL =
-	import.meta.env.MODE === 'development'
-		? 'http://localhost:5000/api'
-		: 'https://weather-app-ridyls-projects.vercel.app/';
+	process.env.NODE_ENV === 'development'
+		? 'http://localhost:5000/api' // Local backend
+		: 'https://weather-app-ridyls-projects.vercel.app/api'; // Deployed backend
 
 const api = axios.create({
 	baseURL: API_URL,
@@ -15,10 +15,10 @@ const api = axios.create({
 
 export const getQuote = async () => {
 	try {
-		const response = await api.get('/today');
+		const response = await api.get('/today'); // Corrected path
 		return response.data;
 	} catch (error) {
-		console.error('Error fetching quote data', error);
+		console.error('Error fetching quote data:', error);
 		throw error;
 	}
 };
@@ -32,7 +32,7 @@ export const getWeather = async (lat, lon) => {
 		const weather = await api.get('/weather', { params: { lat, lon } });
 		return weather.data;
 	} catch (error) {
-		console.error('Error fetching weather data', error);
+		console.error('Error fetching weather data:', error);
 		throw error;
 	}
 };
