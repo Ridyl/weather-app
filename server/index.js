@@ -3,14 +3,16 @@ import axios from 'axios';
 import cors from 'cors';
 import dotenv from 'dotenv';
 
+// Load environment variables
 dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 5000;
 
+// Allow CORS for frontend
 const allowedOrigins = [
-	process.env.FRONTEND_URL || 'http://localhost:3000', // Use env for security
-	'weather-app-delta-livid-35.vercel.app', // Deployed frontend
+	process.env.FRONTEND_URL || 'http://localhost:3000',
+	'https://weather-app-ridyls-projects.vercel.app',
 ];
 
 app.use(
@@ -29,6 +31,7 @@ app.use(
 
 app.use(express.json());
 
+// API: Get Quote
 app.get('/api/today', async (req, res) => {
 	try {
 		const response = await axios.get('https://zenquotes.io/api/today/');
@@ -39,6 +42,7 @@ app.get('/api/today', async (req, res) => {
 	}
 });
 
+// API: Get Weather
 app.get('/api/weather', async (req, res) => {
 	const { lat, lon } = req.query;
 
@@ -59,10 +63,12 @@ app.get('/api/weather', async (req, res) => {
 	}
 });
 
+// Only start locally, NOT in serverless functions
 if (process.env.NODE_ENV !== 'production') {
 	app.listen(PORT, () => {
 		console.log(`Server running on http://localhost:${PORT}`);
 	});
 }
 
+// Export app for Vercel serverless functions
 export default app;
