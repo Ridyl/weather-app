@@ -10,5 +10,5 @@ export default defineConfig({
 	server: {
 		port: 3000,
 	},
-	base: 'https://weather-app-delta-livid-35.vercel.app/',
+	base: '/dist',
 });
