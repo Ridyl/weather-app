@@ -12,7 +12,7 @@ const PORT = process.env.PORT || 5000;
 // Allow CORS for frontend
 const allowedOrigins = [
 	process.env.FRONTEND_URL || 'http://localhost:3000',
-	'https://weather-app-ridyls-projects.vercel.app',
+	'https://weather-app-delta-livid-35.vercel.app/',
 ];
 
 app.use(
