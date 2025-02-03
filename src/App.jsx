@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
-import Header from './components/Header';
-import DayCard from './components/DailyCard';
-import Future from './components/FutureCards';
-import { getWeather } from './api/axios';
+import Header from './components/Header.jsx';
+import DayCard from './components/DailyCard.jsx';
+import Future from './components/FutureCards.jsx';
+import { getWeather } from './api/axios.js';
 import './App.css';
 
 function App() {
