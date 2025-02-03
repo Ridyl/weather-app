@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const API_URL =
-	process.env.NODE_ENV === 'development'
+	import.meta.env.MODE === 'development'
 		? 'http://localhost:5000/api' // Local backend
 		: 'https://weather-app-ridyls-projects.vercel.app/api'; // Deployed backend
 
@@ -13,9 +13,10 @@ const api = axios.create({
 	timeout: 10000,
 });
 
+// Fetch Quote
 export const getQuote = async () => {
 	try {
-		const response = await api.get('/today'); // Corrected path
+		const response = await api.get('/today'); // No need to repeat `/api`
 		return response.data;
 	} catch (error) {
 		console.error('Error fetching quote data:', error);
@@ -23,6 +24,7 @@ export const getQuote = async () => {
 	}
 };
 
+// Fetch Weather
 export const getWeather = async (lat, lon) => {
 	if (!lat || !lon) {
 		throw new Error('Latitude and Longitude are required to fetch weather.');
