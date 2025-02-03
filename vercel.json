@@ -7,11 +7,5 @@
 	"routes": [
 		{ "src": "/api/(.*)", "dest": "server/index.js" },
 		{ "src": "/(.*)", "dest": "/index.html" }
-	],
-	"rewrites": [
-		{
-			"source": "**/*.jsx",
-			"destination": "/index.html"
-		}
 	]
 }
