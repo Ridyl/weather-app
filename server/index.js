@@ -2,6 +2,7 @@ import express from 'express';
 import axios from 'axios';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import path from 'path';
 
 // Load environment variables
 dotenv.config();
@@ -14,6 +15,8 @@ const allowedOrigins = [
 	process.env.FRONTEND_URL || 'http://localhost:3000',
 	'https://weather-app-delta-livid-35.vercel.app/',
 ];
+
+app.use(express.static(path.join(__dirname, 'dist')));
 
 app.use(
 	cors({
@@ -40,6 +43,10 @@ app.get('/api/today', async (req, res) => {
 		console.error('Error fetching quotes:', error.message);
 		res.status(500).json({ error: 'Failed to fetch quotes' });
 	}
+});
+
+app.get('*', (req, res) => {
+	res.sendFile(path.join(__dirname, 'dist', 'index.html'));
 });
 
 // API: Get Weather
