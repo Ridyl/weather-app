@@ -1,7 +1,7 @@
 {
 	"version": 2,
 	"routes": [
-		{ "src": "/api/(.*)", "dest": "./api/axios.js" },
+		{ "src": "/api/(.*)", "dest": "src/api/axios.js" },
 		{ "src": "/(.*)", "dest": "server/index.js" }
 	]
 }
