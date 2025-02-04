@@ -1,4 +1,7 @@
 {
 	"version": 2,
-	"routes": [{ "src": "/api/(.*)", "dest": "server/index.js" }]
+	"functions": {
+		"api/index.js": { "runtime": "@vercel/node" }
+	},
+	"routes": [{ "src": "/api/(.*)", "dest": "api/index.js" }]
 }
