@@ -13,7 +13,7 @@ const api = axios.create({
 // Fetch Quote
 export const getQuote = async () => {
 	try {
-		const response = await api.get('/today');
+		const response = await api.get('/api/today');
 		return response.data;
 	} catch (error) {
 		console.error('Error fetching quote data:', error);
