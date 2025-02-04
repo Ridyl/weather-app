@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'https://weather-app-delta-livid-35.vercel.app/';
+const API_URL = '/api';
 
 const api = axios.create({
 	baseURL: API_URL,
