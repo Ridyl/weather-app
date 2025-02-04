@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = process.env.FRONTEND_URL;
+const API_URL = 'https://weather-app-delta-livid-35.vercel.app/';
 
 const api = axios.create({
 	baseURL: API_URL,
@@ -13,7 +13,7 @@ const api = axios.create({
 // Fetch Quote
 export const getQuote = async () => {
 	try {
-		const response = await api.get('/today'); // No need to repeat `/api`
+		const response = await api.get('/today');
 		return response.data;
 	} catch (error) {
 		console.error('Error fetching quote data:', error);
