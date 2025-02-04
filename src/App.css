@@ -31,7 +31,7 @@
 }
 
 #wind {
-	background-image: url('components/images/circle.png');
+	background-image: url('components/assets/circle.png');
 	background-repeat: no-repeat;
 	background-position: center;
 	background-size: 160px 160px;
